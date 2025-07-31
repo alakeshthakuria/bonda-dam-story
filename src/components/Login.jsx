@@ -1,6 +1,6 @@
 // src/components/Login.jsx
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function Login() {
   const [phone, setPhone] = useState('');
@@ -49,6 +49,10 @@ function Login() {
         <button type="submit">Login</button>
       </form>
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      <p style={{ marginTop: '1rem' }}>
+        Don’t have an account?{' '}
+        <Link to="/signup">Sign up</Link>
+      </p>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 // src/components/Signup.jsx
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function Signup() {
   const navigate = useNavigate();
@@ -67,6 +67,10 @@ function Signup() {
         <br />
         <button type="submit">Sign Up</button>
       </form>
+      <p style={{ marginTop: '1rem' }}>
+        Already have an account?{' '}
+        <Link to="/login">Log in</Link>
+      </p>
     </div>
   );
 }

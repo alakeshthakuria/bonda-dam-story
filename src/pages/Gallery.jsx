@@ -46,7 +46,7 @@ const Gallery = () => {
           Gallery of Brotherhood
         </h2>
         <button
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/home')}
           style={{
             padding: '10px 16px',
             fontSize: '1rem',
