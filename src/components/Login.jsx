@@ -1,30 +1,26 @@
 // src/components/Login.jsx
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase'; // make sure the path is correct
 
 function Login() {
-  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+    setError('');
 
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-
-    if (!storedUser) {
-      setError('No user found. Please sign up first.');
-      return;
-    }
-
-    if (storedUser.phone === phone && storedUser.password === password) {
-      setError('');
-      localStorage.setItem('loggedInUser', 'true');
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
       alert('Login successful!');
       navigate('/home');
-    } else {
-      setError('Invalid phone or password');
+    } catch (err) {
+      console.error('Login error:', err.message);
+      setError('Invalid email or password.');
     }
   };
 
@@ -33,10 +29,10 @@ function Login() {
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <input
-          type="text"
-          placeholder="Phone"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
         /><br /><br />
         <input

@@ -1,15 +1,20 @@
 // src/components/Signup.jsx
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 function Signup() {
   const navigate = useNavigate();
+  const auth = getAuth();
 
   const [formData, setFormData] = useState({
+    email: '',
+    password: '',
     name: '',
-    phone: '',
-    password: ''
+    phone: ''
   });
+
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     setFormData({
@@ -18,14 +23,17 @@ function Signup() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
 
-    // Save data to localStorage (can be encrypted in real apps)
-    localStorage.setItem('user', JSON.stringify(formData));
-
-    alert('Signup successful! Now login.');
-    navigate('/login');
+    try {
+      await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+      alert('Signup successful! Now login.');
+      navigate('/login');
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   return (
@@ -55,6 +63,17 @@ function Signup() {
         </div>
         <br />
         <div>
+          <label>Email:</label><br />
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <br />
+        <div>
           <label>Password:</label><br />
           <input
             type="password"
@@ -66,6 +85,7 @@ function Signup() {
         </div>
         <br />
         <button type="submit">Sign Up</button>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
       </form>
       <p style={{ marginTop: '1rem' }}>
         Already have an account?{' '}
@@ -76,4 +96,3 @@ function Signup() {
 }
 
 export default Signup;
-

@@ -1,6 +1,7 @@
 // src/pages/Home.jsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import LogoutButton from '../components/LogoutButton';
 
 import deepakImg from '../assets/deepak.jpeg';
 import somuImg from '../assets/somu1.jpeg';
@@ -38,7 +39,7 @@ const Home = () => {
     {
       name: "Naveen",
       image: naveenImg,
-      description: "Meet Mr. druggist Tower—acting sober while his eyes are buffering. 🧐 He’s holding a glass, an iphone, and everyone's dignity in one shaky hand. Last seen telling the bouncer, ‘They’re not drunk, they’re just emotionally expressive!",
+      description: "Meet Mr. druggist Tower—acting sober while his eyes are buffering. 🧐 He’s holding a glass, an iphone, and everyone's dignity in one shaky hand. Last seen telling the bouncer, ‘They’re not drunk, they’re just emotionally expressive!’",
     },
     {
       name: "Mitthu",
@@ -61,23 +62,26 @@ const Home = () => {
     <div style={{ padding: '20px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h2>The Brotherhood of the Bottles</h2>
-        <button
-          onClick={() => navigate('/gallery')}
-          style={{
-            padding: '10px 15px',
-            border: 'none',
-            backgroundColor: '#007bff',
-            color: '#fff',
-            borderRadius: '6px',
-            cursor: 'pointer',
-            fontSize: '14px',
-          }}
-        >
-          View Gallery
-        </button>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <button
+            onClick={() => navigate('/gallery')}
+            style={{
+              padding: '10px 15px',
+              border: 'none',
+              backgroundColor: '#007bff',
+              color: '#fff',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              fontSize: '14px',
+            }}
+          >
+            View Gallery
+          </button>
+          <LogoutButton />
+        </div>
       </div>
 
-      <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', marginTop: '20px' }}>
         {personalities.map((person, index) => (
           <div key={index} style={{ border: '1px solid #ccc', borderRadius: '10px', padding: '10px', width: '250px' }}>
             <img src={person.image} alt={person.name} style={{ width: '100%', borderRadius: '10px' }} />
